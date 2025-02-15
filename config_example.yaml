@@ -1,0 +1,66 @@
+salt: "103bb773fc6dd2bb" # some 16-byte hex value
+prefix: "42042042" # 8-byte prefix
+report_path: "/opt/scoring/ScoringReport.html"
+
+checks:
+  - type: "FileContains"
+    description: "Disabled SSH root login"
+    filename: "/etc/ssh/sshd_config"
+    line: "PermitRootLogin no"
+    points: 1
+  - type: "FileExists"
+    description: "Passwd file exists"
+    filename: "/etc/passwd"
+    points: 1
+  - type: "UserExists"
+    description: "Root user exists"
+    user: "root"
+    points: 1
+  - type: "GroupExists"
+    description: "Adm group exists"
+    group: "adm"
+    points: 1
+  - type: "ServiceUp"
+    description: "OpenVPN service is running"
+    service: "openvpn"
+    points: 1
+  - type: "OwnerUID"
+    description: "Passwd file is owned by root"
+    filename: "/etc/passwd"
+    id: "0"
+    points: 1
+  - type: "OwnerGID"
+    description: "Passwd file is owned by root group"
+    filename: "/etc/passwd"
+    id: "0"
+    points: 1
+  - type: "WorldReadable"
+    description: "Shadow file is not world readable"
+    filename: "/etc/shadow"
+    value: "0"
+    points: 1
+  - type: "WorldReadable"
+    description: "Passwd file is world readable"
+    filename: "/etc/passwd"
+    value: "1"
+    points: 1
+  - type: "WorldWritable"
+    description: "Passwd file is not world writable"
+    filename: "/etc/passwd"
+    value: "0"
+    points: 1
+  - type: "SUID"
+    description: "Removed setuid from /usr/bin/dash" # /bin/ is a symlink and thus does not work
+    filename: "/usr/bin/dash"
+    value: "0"
+    points: 1
+  - type: "SGID"
+    description: "Removed setgid from /usr/bin/nano"
+    filename: "/usr/bin/nano"
+    value: "0"
+    points: 1
+  - type: "StickyBit"
+    description: "Directory /tmp/a/ has the sticky bit set"
+    filename: "/tmp/a"
+    value: "1"
+    points: 1

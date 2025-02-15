@@ -21,6 +21,7 @@ void writeReport(struct desc** vulns, int nVulns) {
     for (int i=0; i<nVulns; i++) {
         snprintf(buf, 120, "<p>%s - %d pts</p>", (char*) &vulns[i]->text, vulns[i]->pts);
         strcat(desc_text, buf);
+        points += vulns[i]->pts;
     }
 
     fprintf(report, html_template, desc_text, nVulns, NUM_VULNS, points, MAX_POINTS);

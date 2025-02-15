@@ -31,6 +31,9 @@ def process_yaml(filename):
     report_path = config.get("report_path", "/opt/scoring/ScoringReport.html").encode()
     salt = bytes.fromhex(config.get("salt", "0123456789abcdef"))
 
+    assert len(prefix) == 8, "Prefix must be 8 bytes long"
+    assert len(salt) == 8, "Salt must be 8 bytes long"
+
     out = b""
     nvulns = 0
     nchecks = 0
@@ -38,6 +41,8 @@ def process_yaml(filename):
 
     for check_id, entry in enumerate(config.get("checks", [])):
         desc_text = entry["description"].encode()
+        assert len(desc_text) < 100, "Maximum description length is 100 bytes."
+
         desc = prefix + struct.pack("<I", len(desc_text)) + \
                         struct.pack("<I", entry["points"]) + \
                         struct.pack("<I", check_id) + \
@@ -59,7 +64,8 @@ def process_yaml(filename):
             key_data += b":" + (b"us:" if entry["type"].lower() == "owneruid" else b"gr:") + entry["id"].encode()
         elif entry["type"].lower() in ["worldwritable", "worldreadable", "stickybit", "suid", "sgid"]:
             key_data = entry["filename"].encode()
-            key_data += b":" + entry["type"].lower()[:2].encode() + b":" + entry["value"].encode()
+            lookup = {"worldwritable": "ow", "worldreadable": "or", "stickybit": "sb", "suid": "su", "sgid": "sg"}
+            key_data += b":" + lookup[entry["type"].lower()].encode() + b":" + entry["value"].encode()
 
         nonce = b"\0"*16 # unconventional use of aes-ctr, nonce can be the same because key is always different
         key = hashlib.sha256(salt + key_data).digest()
