@@ -1,0 +1,36 @@
+salt: "103bb773fc6dd2bb"
+prefix: "42042042"
+report_path: "/opt/scoring/ScoringReport.html"
+
+checks:
+  - type: "filecontains"
+    description: "Check if file contains specific content"
+    filename: "/etc/passwd"
+    line: "root:x:0:0:root:/root:/bin/bash"
+    points: 10
+  - type: "fileexists"
+    description: "Check if passwd exists"
+    filename: "/etc/passwd"
+    points: 10
+  - type: "owneruid"
+    description: "Check owner UID"
+    filename: "/etc/shadow"
+    id: "0"
+    points: 20
+  - type: "userexists"
+    description: "User ethan exists"
+    user: "ethan"
+    points: 20
+  - type: "groupexists"
+    description: "Group ethan exists"
+    group: "ethan"
+    points: 20
+  - type: "worldwritable"
+    description: "Check world writable"
+    filename: "/etc/passwd"
+    value: "0"
+    points: 5
+  - type: "serviceup"
+    description: "OpenVPN service is started"
+    service: "openvpn"
+    points: 5

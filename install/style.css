@@ -1,0 +1,33 @@
+
+body{
+      background:url("background.jpeg");background-position:center; 
+      
+      margin:0px;
+      padding:0px;
+      background-attachment: fixed;
+      }   
+    
+    *{
+      text-align:center; font-family: 'Share Tech Mono', monospace;
+      }
+    p{padding:10px; background-color:beige; width:40%; margin:auto; margin-bottom:10px; transition:.1s}
+
+    p:hover{padding-left: 15px; paddding-right:15px; font-size: 20px; background-color: lightgreen}
+
+    h1{color:black; font-size:50px}
+    
+    #ending{background-color:lightgreen}
+    #ending:hover{padding-left:0px; padding-right:0px; font-size:13px}
+    
+    #score{background-color:wheat}
+    
+    
+    #credits{background-color:transparent; color:black}
+    #icon{float:left;left:50px}
+    #icon2{float:right; right:50px}
+    img{width:150px; position:relative; bottom:50px; border:5px solid black;transition:.1s}
+    
+    img:hover{
+        width:175px;
+        height:auto;
+    }
