@@ -1,4 +1,7 @@
 #!/bin/sh
 
-/opt/scoring/engine
-sleep 10
+while true
+do
+    /opt/scoring/engine
+    sleep 10
+done
