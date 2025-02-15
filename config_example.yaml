@@ -13,9 +13,17 @@ report_path: "/opt/scoring/ScoringReport.html"
 
 checks:
   - type: "FileContains"
+    description: "Forensics Question 1 correct"
+    filename: "/home/ethan/Desktop/Forensics Question 1.txt"
+    line: "ANSWER: 42" # any number of spaces between ":" and the answers will score.
+                       # also is case insensitive.
+    points: 1
+  - type: "FileContains"
     description: "Disabled SSH root login"
     filename: "/etc/ssh/sshd_config"
-    line: "PermitRootLogin no"
+    line: "PermitRootLogin no" # spaces are ignored and line is case insensitive.
+                               # lines starting with "#" or ";" are assumed to be
+                               # comments and are thus ignored.
     points: 1
   - type: "FileExists"
     description: "Passwd file exists"
@@ -30,7 +38,7 @@ checks:
     group: "adm"
     points: 1
   - type: "ServiceUp"
-    description: "OpenVPN service is running"
+    description: "OpenVPN service is running" # only works with systemd right now
     service: "openvpn"
     points: 1
   - type: "OwnerUID"
@@ -54,7 +62,8 @@ checks:
     value: "1"
     points: 1
   - type: "WorldWritable"
-    description: "Passwd file is not world writable"
+    description: "Passwd file is not world writable" # all permissions checks are negatable, but we
+                                                     # won't demonstrate all of them here
     filename: "/etc/passwd"
     value: "0"
     points: 1
