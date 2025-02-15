@@ -1,5 +1,14 @@
-salt: "103bb773fc6dd2bb" # some 16-byte hex value
-prefix: "42042042" # 8-byte prefix
+salt: "103bb773fc6dd2bb" # some 16-byte hex value.
+                         # preferably, change for every new image to
+                         # prevent brute-force attacks on the hashes.
+                         # however, ensuring randomness/confidentiality
+                         # of this value is not neccesary for the
+                         # security model of the engine
+
+prefix: "42042042"       # 8-byte prefix
+                         # this does not need to be changed ever.
+                         # but customization is still an option
+
 report_path: "/opt/scoring/ScoringReport.html"
 
 checks:
